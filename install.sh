@@ -135,7 +135,8 @@ exit 1
         xcode-select --install       
         echo -e "\e[31m___________________________________________________________________________________\e[m"    
         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
-        echo -e "\e[31m___________________________________________________________________________________\e[m"          yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo -e "\e[31m___________________________________________________________________________________\e[m"         
+        yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install openssl rust
             export CPPFLAGS=-I/usr/local/opt/openssl/include
             export LDFLAGS=-L/usr/local/opt/openssl/lib
