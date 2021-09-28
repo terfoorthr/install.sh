@@ -136,10 +136,10 @@ exit 1
         brew install ansible    
 # install repo               
     if [ ! -d "${CP_INSTALL_DIR}" ]; then
-                sudo mkdir "${CP_INSTALL_DIR}"
+                mkdir "${CP_INSTALL_DIR}"
     fi
-                sudo chmod 775 "${CP_INSTALL_DIR}"
-                sudo chown "${CP_USER}" "${CP_INSTALL_DIR}" 
+                chmod 775 "${CP_INSTALL_DIR}"
+                chown "${CP_USER}" "${CP_INSTALL_DIR}" 
                 cd ${HOME} &&
                 git clone $CP_URL    
 #run playbooks
