@@ -65,9 +65,9 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
 #install xcode a. ansible´     
         echo "checking xcode..." 
         xcode-select --install && 
-        echo -e "\e[1;31m ___________________________________________________________________________________ \e[0m"     
+        echo -e "\e[31m___________________________________________________________________________________\e[m"    
         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
-        echo -e "\e[1;31m ___________________________________________________________________________________ \e[0m"  
+        echo -e "\e[31m___________________________________________________________________________________\e[m"  
               cd /opt &&
               sudo mkdir homebrew 
               sudo chown "$USER" homebrew 
