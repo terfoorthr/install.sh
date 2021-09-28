@@ -7,7 +7,7 @@
 #############################################################################
 # VARIABLES
 #############################################################################
-CP_URL="https://github.com/terfoorthr/.ansible.git"
+CP_URL="https://github.com/terfoorthr/.ansible.git" 
 CP_USER=${USER} 
 CP_INSTALL_DIR="${HOME}/.ansible"
 #CP_FILES_DIR="${CP_INSTALL_DIR}/files"
@@ -40,15 +40,15 @@ hostnamectl
     cd "$CP_PLAYBOOKS" &&
     ansible-playbook ubuntu_admin.yml
 #Check/install - Dev-setup
-                printf "\e[32mINSTALL DEVELOPER E\e[m\n"
-                echo "Please enter y/n"
+                printf "\e[32mINSTALL DEVELOPER ENVIRONMENT\e[m\n"
+                printf "\e[32mPlease enter y/n\e[m\n"
                 read "DEV_SETUP"
         if [[ $DEV_SETUP == "y" ]]; then
                 bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                 valet.sh xps-setup -d
-                echo "provisioning system for user account finished"
+                printf "\e[32mprovisioning system for user account finished\e[m\n"
         else
-                echo "provisioning system for user account finished"  
+                printf "\e[32mprovisioning system for user account finished\e[m\n" 
         fi      
 fi
 ########## MAC OS #########################################################
@@ -64,8 +64,10 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
 #install xcode a. ansible´     
         echo "checking xcode..." 
-        xcode-select --install &&      
-         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
+        xcode-select --install && 
+        echo -e "\e[1;31m ___________________________________________________________________________________ \e[0m"     
+        read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
+        echo -e "\e[1;31m ___________________________________________________________________________________ \e[0m"  
               cd /opt &&
               sudo mkdir homebrew 
               sudo chown "$USER" homebrew 
@@ -86,22 +88,22 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
             cd "$CP_PLAYBOOKS" &&
             if [[ $CP_USER == "it-support" ]]; then
                 ansible-playbook mac_arm_admin.yml
-                echo "provisioning system for Admin-Account finished"
+                printf "\e[32mprovisioning system for ADMINISTRATOR account finished\e[m\n"
             else
                 ansible-playbook mac_user.yml
 #Check/install - Dev-setup                
-                    echo "install developer environment?"
-                    echo "Please enter y/n"
+                    printf "\e[32mINSTALL DEVELOPER ENVIRONMENT?\e[m\n"
+                    printf "\e[32mPlease enter y/n\e[m\n"
                     read "DEV_SETUP"
                 if [[ $DEV_SETUP == "y" ]]; then
                     bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                     valet.sh install
-                    echo "provisioning system for user account finished"
+                    printf "\e[32mprovisioning system for USER account finished\e[m\n"
 #Dont deletes Homebrew only install dir    
                     rm -rf "${CP_INSTALL_DIR}"               
                     exit 1
                 else
-                    echo "provisioning system for user account finished"  
+                    printf "\e[32mprovisioning system for USER account finished\e[m\n"
                     rm -rf "${CP_INSTALL_DIR}"
                     exit 1
                 fi      
@@ -149,22 +151,22 @@ exit 1
             cd "$CP_PLAYBOOKS" &&
                 if [[ $CP_USER == "it-support" ]]; then
                     ansible-playbook mac_intel_admin.yml
-                    echo "provisioning system for Admin-Account finished"
+                    printf "\e[32mprovisioning system for ADMINISTRATOR account finished\e[m\n"
                 else
                     ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
-                        echo "install developer environment?"
-                        echo "Please enter y/n"
+                        printf "\e[32mINSTALL DEVELOPER ENVIRONMENT?\e[m\n"
+                        printf "\e[32mPlease enter y/n\e[m\n"
                         read "DEV_SETUP"
                     if [[ $DEV_SETUP == "y" ]]; then
                         bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                         valet.sh install
-                        echo "provisioning system for user account finished"
+                        printf "\e[32mprovisioning system for USER account finished\e[m\n"
 #Dont deletes Homebrew only install dir                       
                             rm -rf "${CP_INSTALL_DIR}"
                         exit 1
                     else
-                        echo "provisioning system for user account finished" 
+                        printf "\e[32mprovisioning system for USER account finished\e[m\n" 
                             rm -rf "${CP_INSTALL_DIR}"
                         exit 1 
                     fi      
