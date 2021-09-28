@@ -95,30 +95,31 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
             cd "$CP_PLAYBOOKS" &&
             if [[ $CP_USER == "it-support" ]]; then
                 ansible-playbook mac_arm_admin.yml
-                osascript -e 'display alert "Finish Admin-Setup" message "
-                        Admin--Account sind vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.     
-                        Admin accounts are fully set up. Next, execute the same command in the newly created user account."'
+                osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
+                
+                Admin account is fully set up. Next, execute the same command in the newly created user account."'
             else
                 ansible-playbook mac_user.yml
-#Check/install - Dev-setup                
-                    printf "\e[32mINSTALL DEVELOPER ENVIRONMENT?\e[m\n"
-                    printf "\e[32mPlease enter y/n\e[m\n"
-                    read "DEV_SETUP"
-                if [[ $DEV_SETUP == "y" ]]; then
+#Check/install - Dev-setup 
+          
+results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment"')                               
+theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
+
+                if [[ $theButton == "OK" ]]; then
                     bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                     valet.sh install
-                    osascript -e 'display alert "Finish Install" message "
-                        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                        The working environment is now fully set up for handover to the employee."'
-#Dont deletes Homebrew only install dir    
-                    rm -rf "${CP_INSTALL_DIR}"               
-                    exit 1
-                else
-                    osascript -e 'display alert "Finish Install" message "
-                        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                        The working environment is now fully set up for handover to the employee."'
+            #Dont deletes Homebrew only install dir                       
                     rm -rf "${CP_INSTALL_DIR}"
-                    exit 1
+                    osascript -e 'display alert "Finish Install" message "
+                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+                    The working environment is now fully set up for handover to the employee."'    
+                        exit 1
+                else     
+                    osascript -e 'display alert "Finish Install" message "
+                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+                    The working environment is now fully set up for handover to the employee."'
+                    rm -rf "${CP_INSTALL_DIR}"
+                        exit 1 
                 fi      
             fi
 #cleaning     
@@ -167,32 +168,33 @@ exit 1
             cd "$CP_PLAYBOOKS" &&
                 if [[ $CP_USER == "it-support" ]]; then
                     ansible-playbook mac_intel_admin.yml
-                    osascript -e 'display alert "Finish Admin-Setup" message "
-                        Admin--Account sind vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.     
-                        Admin accounts are fully set up. Next, execute the same command in the newly created user account."'
+                  osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
+                
+                Admin account is fully set up. Next, execute the same command in the newly created user account."'
                 else
                     ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
-                        printf "\e[32mINSTALL DEVELOPER ENVIRONMENT?\e[m\n"
-                        printf "\e[32mPlease enter y/n\e[m\n"
-                        read "DEV_SETUP"
-                    if [[ $DEV_SETUP == "y" ]]; then
-                        bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
-                        valet.sh install
-#Dont deletes Homebrew only install dir                       
-                            rm -rf "${CP_INSTALL_DIR}"
-                        osascript -e 'display alert "Finish Install" message "
-                        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                        The working environment is now fully set up for handover to the employee."'    
+          
+results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment"')                               
+theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
+
+                if [[ $theButton == "OK" ]]; then
+                    bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
+                    valet.sh install
+            #Dont deletes Homebrew only install dir                       
+                    rm -rf "${CP_INSTALL_DIR}"
+                    osascript -e 'display alert "Finish Install" message "
+                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+                    The working environment is now fully set up for handover to the employee."'    
                         exit 1
-                    else
-                        osascript -e 'display alert "Finish Install" message "
-                        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                        The working environment is now fully set up for handover to the employee."'
-                            rm -rf "${CP_INSTALL_DIR}"
+                else     
+                    osascript -e 'display alert "Finish Install" message "
+                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+                    The working environment is now fully set up for handover to the employee."'
+                    rm -rf "${CP_INSTALL_DIR}"
                         exit 1 
-                    fi      
-    fi
+                fi      
+            fi
 #cleaning
 echo "removing install files."               
 yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"                                
