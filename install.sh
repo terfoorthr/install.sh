@@ -133,8 +133,9 @@ exit 1
 #install xcode, brew a. ansible
     echo "checking xcode..." 
         xcode-select --install       
+        echo -e "\e[31m___________________________________________________________________________________\e[m"    
         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
-        yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo -e "\e[31m___________________________________________________________________________________\e[m"          yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install openssl rust
             export CPPFLAGS=-I/usr/local/opt/openssl/include
             export LDFLAGS=-L/usr/local/opt/openssl/lib
