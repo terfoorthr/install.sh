@@ -18,7 +18,7 @@ DEV_SETUP=""
 #Check system and install recources-----------------------------------------------
 
 ############## LINUX #########################################################
-echo "We bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your"
+printf "\e[32mWe bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 echo "Your operating system," 
@@ -33,14 +33,14 @@ hostnamectl
     yes | sudo apt update
     sudo apt install software-properties-common
     sudo add-apt-repository --yes --update ppa:ansible/ansible
-    yes |  sudo apt install ansible
+    yes | sudo apt install ansible
     yes | sudo apt install python-testresources
     yes | sudo apt install curl
 # run Playbooks   
     cd "$CP_PLAYBOOKS" &&
     ansible-playbook ubuntu_admin.yml
 #Check/install - Dev-setup
-                echo "install developer environment?"
+                printf "\e[32mINSTALL DEVELOPER E\e[m\n"
                 echo "Please enter y/n"
                 read "DEV_SETUP"
         if [[ $DEV_SETUP == "y" ]]; then
@@ -75,13 +75,13 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         brew install ansible
 # install repo
         if [ ! -d "${CP_INSTALL_DIR}" ]; then
-                sudo mkdir "${CP_INSTALL_DIR}"
+                mkdir "${CP_INSTALL_DIR}"
         fi
                 cd ${HOME} &&
                 git clone $CP_URL
 # reset correct permissions
-                sudo chmod 775 "${CP_INSTALL_DIR}"
-                sudo chown "${CP_USER}" "${CP_INSTALL_DIR}"
+                chmod 775 "${CP_INSTALL_DIR}"
+                chown "${CP_USER}" "${CP_INSTALL_DIR}"
 #run playbooks
             cd "$CP_PLAYBOOKS" &&
             if [[ $CP_USER == "it-support" ]]; then
@@ -97,9 +97,12 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
                     bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                     valet.sh install
                     echo "provisioning system for user account finished"
+#Dont deletes Homebrew only install dir    
+                    rm -rf "${CP_INSTALL_DIR}"               
                     exit 1
                 else
                     echo "provisioning system for user account finished"  
+                    rm -rf "${CP_INSTALL_DIR}"
                     exit 1
                 fi      
             fi
@@ -116,8 +119,8 @@ rm -rf /opt/homebrew/opt/
 rm -rf /opt/homebrew/sbin/
 rm -rf /opt/homebrew/share/
 rm -rf /opt/homebrew/var/
-sudo rm -rf /opt/homebrew
-sudo rm -rf "/${CP_INSTALL_DIR}"
+rm -rf /opt/homebrew
+rm -rf "${CP_INSTALL_DIR}"
 exit 1                                                  
                                               
                                             
@@ -157,28 +160,30 @@ exit 1
                         bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                         valet.sh install
                         echo "provisioning system for user account finished"
-                        sudo rm -rf "/${CP_INSTALL_DIR}"
+#Dont deletes Homebrew only install dir                       
+                            rm -rf "${CP_INSTALL_DIR}"
                         exit 1
                     else
                         echo "provisioning system for user account finished" 
+                            rm -rf "${CP_INSTALL_DIR}"
                         exit 1 
                     fi      
     fi
 #cleaning
 echo "removing install files, please enter your,"               
 yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"                                
-sudo rm -rf /usr/local/bin/
-sudo rm -rf /usr/local/etc/
-sudo rm -rf /usr/local/include/
-sudo rm -rf /usr/local/lib/
-sudo rm -rf /usr/local/opt/
-sudo rm -rf /usr/local/sbin/
-sudo rm -rf /usr/local/share/
-sudo rm -rf /usr/local/var/
-sudo rm -rf /usr/local/homebrew/
-sudo rm -rf /usr/local/Cellar/
-sudo rm -rf /usr/local/Frameworks/
-sudo rm -rf "/${CP_INSTALL_DIR}"
+ rm -rf /usr/local/bin/
+ rm -rf /usr/local/etc/
+ rm -rf /usr/local/include/
+ rm -rf /usr/local/lib/
+ rm -rf /usr/local/opt/
+ rm -rf /usr/local/sbin/
+ rm -rf /usr/local/share/
+ rm -rf /usr/local/var/
+ rm -rf /usr/local/homebrew/
+ rm -rf /usr/local/Cellar/
+ rm -rf /usr/local/Frameworks/
+ rm -rf "/${CP_INSTALL_DIR}"
 exit 1                                         
         fi
 fi 
