@@ -18,7 +18,7 @@ DEV_SETUP=""
 #Check system and install recources-----------------------------------------------
 
 ############## LINUX #########################################################
-echo "We bringing up your System for the Client-Provisioning developed by TechDivision, please enter your,"
+echo "We bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your"
 sudo true
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 echo "Your operating system," 
@@ -65,7 +65,7 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
 #install xcode a. ansible´     
         echo "checking xcode..." 
         xcode-select --install &&      
-         read -p "Press [Enter] key after X-CODE installation is finished..."
+         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
               cd /opt &&
               sudo mkdir homebrew 
               sudo chown "$USER" homebrew 
@@ -128,7 +128,7 @@ exit 1
 #install xcode, brew a. ansible
     echo "checking xcode..." 
         xcode-select --install       
-        read -p "Press [Enter] key after X-CODE installation is finished..."
+        read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
         yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install openssl rust
             export CPPFLAGS=-I/usr/local/opt/openssl/include
@@ -157,6 +157,7 @@ exit 1
                         bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                         valet.sh install
                         echo "provisioning system for user account finished"
+                        sudo rm -rf "/${CP_INSTALL_DIR}"
                         exit 1
                     else
                         echo "provisioning system for user account finished" 
