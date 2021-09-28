@@ -20,6 +20,7 @@ DEV_SETUP=""
 ############## LINUX #########################################################
 printf "\e[32mWe bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 echo "Your operating system," 
 hostnamectl
@@ -58,6 +59,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "checking Hardware and OS Version..."
     MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
     echo "${MAC_TYPE}"
+    
+osascript -e 'display alert "Wichtig" message "Während der Installation erscheinen ein paar bestätigungs Popup Fenster - Diese immer erlauben/bestätigen
+Insbesondere bei der Bitdefender Installation
+
+A couple of confirmation popup windows appear during the installation - Always allow / confirm these
+Especially when installing Bitdefender."'
 
 #MAC Appel m1---------------------------------------------------------------------------      
 if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
@@ -132,7 +139,7 @@ exit 1
 #install xcode, brew a. ansible
     echo "checking xcode..." 
         xcode-select --install  
-             
+
         printf "\e[32m___________________________________________________________________\e[m\n" 
         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
         printf "\e[32m___________________________________________________________________\e[m\n"    
