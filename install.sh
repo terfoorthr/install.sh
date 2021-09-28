@@ -65,7 +65,7 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
 #install xcode a. ansible´     
         echo "checking xcode..." 
         xcode-select --install &&      
-         read -p "Press [Enter] key to after X-CODE installation is finished..."
+         read -p "Press [Enter] key after X-CODE installation is finished..."
               cd /opt &&
               sudo mkdir homebrew 
               sudo chown "$USER" homebrew 
@@ -128,7 +128,7 @@ exit 1
 #install xcode, brew a. ansible
     echo "checking xcode..." 
         xcode-select --install       
-        read -p "Press [Enter] key to after X-CODE installation is finished..."
+        read -p "Press [Enter] key after X-CODE installation is finished..."
         yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install openssl rust
             export CPPFLAGS=-I/usr/local/opt/openssl/include
