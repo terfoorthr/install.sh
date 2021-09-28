@@ -20,6 +20,7 @@ DEV_SETUP=""
 ############## LINUX #########################################################
 printf "\e[32mWe bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 echo "Your operating system," 
 hostnamectl
@@ -58,6 +59,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "checking Hardware and OS Version..."
     MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
     echo "${MAC_TYPE}"
+    
+osascript -e 'display alert "Wichtig" message "Während der Installation erscheinen ein paar bestätigungs Popup Fenster - Diese immer erlauben/bestätigen
+Insbesondere bei der Bitdefender Installation
+
+A couple of confirmation popup windows appear during the installation - Always allow / confirm these
+Especially when installing Bitdefender."'
 
 #MAC Appel m1---------------------------------------------------------------------------      
 if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
@@ -124,18 +131,20 @@ rm -rf /opt/homebrew/var/
 rm -rf /opt/homebrew
 rm -rf "${CP_INSTALL_DIR}"
 exit 1                                                  
-                                              
-                                            
+                                                                                         
                         
 #Mac INTEL -----------------------------------------------------------------------------
  else
     echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
 #install xcode, brew a. ansible
     echo "checking xcode..." 
-        xcode-select --install       
+        xcode-select --install  
+
         printf "\e[32m___________________________________________________________________\e[m\n" 
         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
-        printf "\e[32m___________________________________________________________________\e[m\n"        
+        printf "\e[32m___________________________________________________________________\e[m\n"    
+
+        yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install openssl rust
             export CPPFLAGS=-I/usr/local/opt/openssl/include
             export LDFLAGS=-L/usr/local/opt/openssl/lib
@@ -186,7 +195,7 @@ yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
  rm -rf /usr/local/homebrew/
  rm -rf /usr/local/Cellar/
  rm -rf /usr/local/Frameworks/
- rm -rf "/${CP_INSTALL_DIR}"
+ rm -rf "${CP_INSTALL_DIR}"
 exit 1                                         
         fi
 fi 
