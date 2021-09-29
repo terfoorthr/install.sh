@@ -7,7 +7,7 @@
 #############################################################################
 # VARIABLES
 #############################################################################
-CP_URL="https://github.com/terfoorthr/.ansible.git"
+CP_URL="https://github.com/terfoorthr/.ansible.git" 
 CP_USER=${USER} 
 CP_INSTALL_DIR="${HOME}/.ansible"
 #CP_FILES_DIR="${CP_INSTALL_DIR}/files"
@@ -18,7 +18,7 @@ DEV_SETUP=""
 #Check system and install recources-----------------------------------------------
 
 ############## LINUX #########################################################
-printf "\e[32mWe bringing up your System  - BE STRONG. BE REAL. BE DIGITAL - The Client-Provisioning developed by TechDivision, please enter your\e[m\n"
+printf "\e[32mWe bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -60,7 +60,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
     echo "${MAC_TYPE}"
     
-osascript -e 'display alert "BE STRONG. BE REAL. BE DIGITAL" message "Während des Programmablaufes erscheinen ein paar Bestätigungs Fenster - Diese IMMER erlauben/bestätigen
+osascript -e 'display alert "Wichtig" message "Während des Programmablaufes erscheinen ein paar Bestätigungs Fenster - Diese IMMER erlauben/bestätigen
 Insbesondere bei der Bitdefender Installation.
 
 A couple of confirmation popup windows appear during the installation - Always allow / confirm these
@@ -95,11 +95,12 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
             cd "$CP_PLAYBOOKS" &&
             if [[ $CP_USER == "it-support" ]]; then
                 ansible-playbook mac_arm_admin.yml
-                 osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert. Schauen sie unter 
--- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ -- dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
+                 osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
+                Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
+                dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
                     - SecurityEndpoind 
                     - BDLDeamon
-aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
+                aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
                 osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
                 Admin account is fully set up. Next, execute the same command in the newly created user account."'
@@ -173,11 +174,12 @@ exit 1
             cd "$CP_PLAYBOOKS" &&
                 if [[ $CP_USER == "it-support" ]]; then
                     ansible-playbook mac_intel_admin.yml
-                osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert. Schauen sie unter 
--- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ -- dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
+                osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
+                Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
+                dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
                     - SecurityEndpoind 
                     - BDLDeamon
-aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
+                aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
                 osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
                 Admin account is fully set up. Next, execute the same command in the newly created user account."'
