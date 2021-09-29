@@ -76,6 +76,7 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
         printf "\e[32m___________________________________________________________________\e[m\n"  
               cd /opt &&
+              chmod 775 /opt
               sudo mkdir homebrew 
               sudo chown "$USER" homebrew 
               sudo chgrp admin homebrew 
