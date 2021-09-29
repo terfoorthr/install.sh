@@ -95,13 +95,11 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
             cd "$CP_PLAYBOOKS" &&
             if [[ $CP_USER == "it-support" ]]; then
                 ansible-playbook mac_arm_admin.yml
-                 osascript -e 'display alert "WICHTIG" message "
-                    Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
-                    Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
-                    dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
+                 osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert. Schauen sie unter 
+-- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ -- dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
                     - SecurityEndpoind 
                     - BDLDeamon
-                    aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
+aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
                 osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
                 Admin account is fully set up. Next, execute the same command in the newly created user account."'
@@ -176,12 +174,11 @@ exit 1
                 if [[ $CP_USER == "it-support" ]]; then
                     ansible-playbook mac_intel_admin.yml
                 osascript -e 'display alert "WICHTIG" message "
-                    Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
-                    Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
-                    dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
+                 osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert. Schauen sie unter 
+-- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ -- dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
                     - SecurityEndpoind 
                     - BDLDeamon
-                    aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
+aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
                 osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
                 Admin account is fully set up. Next, execute the same command in the newly created user account."'
