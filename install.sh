@@ -7,7 +7,7 @@
 #############################################################################
 # VARIABLES
 #############################################################################
-CP_URL="https://github.com/terfoorthr/.ansible.git" 
+CP_URL="https://github.com/terfoorthr/.ansible.git"
 CP_USER=${USER} 
 CP_INSTALL_DIR="${HOME}/.ansible"
 #CP_FILES_DIR="${CP_INSTALL_DIR}/files"
@@ -173,8 +173,7 @@ exit 1
             cd "$CP_PLAYBOOKS" &&
                 if [[ $CP_USER == "it-support" ]]; then
                     ansible-playbook mac_intel_admin.yml
-                osascript -e 'display alert "WICHTIG" message "
-                 osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert. Schauen sie unter 
+                osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert. Schauen sie unter 
 -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ -- dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
                     - SecurityEndpoind 
                     - BDLDeamon
