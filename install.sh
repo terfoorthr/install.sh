@@ -103,7 +103,7 @@ dort muss in der seitlichen Kategorie
         - SecurityEndpoind 
         - BDLDeamon
 aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
-                osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
+                osascript -e 'display alert "BE STRONG. BE REAL. BE DIGITAL." message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
 Admin account is fully set up. Next, execute the same command in the newly created user account."'
             else
@@ -184,7 +184,7 @@ dort muss in der seitlichen Kategorie
         - SecurityEndpoind 
         - BDLDeamon
 aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'   
-                osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
+                osascript -e 'display alert "BE STRONG. BE REAL. BE DIGITAL." message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
 Admin account is fully set up. Next, execute the same command in the newly created user account."'
                 else
