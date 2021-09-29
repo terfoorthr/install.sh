@@ -160,9 +160,6 @@ exit 1
         printf "\e[32m___________________________________________________________________\e[m\n"    
 
         yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        brew install openssl rust
-            export CPPFLAGS=-I/usr/local/opt/openssl/include
-            export LDFLAGS=-L/usr/local/opt/openssl/lib
         brew install ansible    
 # install repo               
     if [ ! -d "${CP_INSTALL_DIR}" ]; then
