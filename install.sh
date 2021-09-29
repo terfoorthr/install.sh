@@ -213,19 +213,19 @@ theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}
             fi
 #cleaning
 echo "removing install files."               
-yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"                                
- rm -rf /usr/local/bin/
- rm -rf /usr/local/etc/
- rm -rf /usr/local/include/
- rm -rf /usr/local/lib/
- rm -rf /usr/local/opt/
- rm -rf /usr/local/sbin/
- rm -rf /usr/local/share/
- rm -rf /usr/local/var/
- rm -rf /usr/local/homebrew/
- rm -rf /usr/local/Cellar/
- rm -rf /usr/local/Frameworks/
- rm -rf "${CP_INSTALL_DIR}"
+yes | sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"                                
+sudo rm -rf /usr/local/bin/
+sudo rm -rf /usr/local/etc/
+sudo rm -rf /usr/local/include/
+sudo rm -rf /usr/local/lib/
+sudo rm -rf /usr/local/opt/
+sudo rm -rf /usr/local/sbin/
+sudo rm -rf /usr/local/share/
+sudo rm -rf /usr/local/var/
+sudo rm -rf /usr/local/homebrew/
+sudo rm -rf /usr/local/Cellar/
+sudo rm -rf /usr/local/Frameworks/
+sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                         
         fi
 fi 
