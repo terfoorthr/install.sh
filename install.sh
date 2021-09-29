@@ -18,7 +18,7 @@ DEV_SETUP=""
 #Check system and install recources-----------------------------------------------
 
 ############## LINUX #########################################################
-printf "\e[32mWe bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your\e[m\n"
+printf "\e[32mWe bringing up your System  - BE STRONG. BE REAL. BE DIGITAL - The Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
