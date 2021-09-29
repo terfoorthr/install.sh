@@ -86,11 +86,12 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         if [ ! -d "${CP_INSTALL_DIR}" ]; then
                 mkdir "${CP_INSTALL_DIR}"
         fi
-                cd ${HOME} &&
-                git clone $CP_URL
 # reset correct permissions
                 chmod 775 "${CP_INSTALL_DIR}"
                 chown "${CP_USER}" "${CP_INSTALL_DIR}"
+        
+                cd ${HOME} &&
+                git clone $CP_URL           
 #run playbooks
             cd "$CP_PLAYBOOKS" &&
             if [[ $CP_USER == "it-support" ]]; then
