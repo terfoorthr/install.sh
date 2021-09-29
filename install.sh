@@ -18,7 +18,7 @@ DEV_SETUP=""
 #Check system and install recources-----------------------------------------------
 
 ############## LINUX #########################################################
-printf "\e[32mWe bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your\e[m\n"
+printf "\e[32mWe bringing up your System  - BE STRONG. BE REAL. BE DIGITAL. -  The Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -98,14 +98,14 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
                  osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
 Schauen sie unter 
 -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
-dort muss in der seitlichen Katigory 
+dort muss in der seitlichen Kategorie
 -FESTPLATTENVOLLZUGRIFF- 
         - SecurityEndpoind 
         - BDLDeamon
 aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
                 osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
-                Admin account is fully set up. Next, execute the same command in the newly created user account."'
+Admin account is fully set up. Next, execute the same command in the newly created user account."'
             else
                 ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
@@ -179,14 +179,14 @@ exit 1
                 osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
 Schauen sie unter 
 -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
-dort muss in der seitlichen Katigory 
+dort muss in der seitlichen Kategorie 
 -FESTPLATTENVOLLZUGRIFF- 
         - SecurityEndpoind 
         - BDLDeamon
 aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'   
                 osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
                 
-                Admin account is fully set up. Next, execute the same command in the newly created user account."'
+Admin account is fully set up. Next, execute the same command in the newly created user account."'
                 else
                     ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
