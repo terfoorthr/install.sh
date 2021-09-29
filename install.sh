@@ -108,6 +108,7 @@ aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivi
                 
 Admin account is fully set up. Next, execute the same command in the newly created user account."'
             else
+                brew link ansible
                 ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
           
