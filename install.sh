@@ -110,7 +110,7 @@ Admin account is fully set up. Next, execute the same command in the newly creat
                 ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
           
-results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment"')                               
+results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment? -- VALET.SH"')                               
 theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
 
                 if [[ $theButton == "OK" ]]; then
@@ -191,7 +191,7 @@ Admin account is fully set up. Next, execute the same command in the newly creat
                     ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
           
-results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment"')                               
+results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment? -- VALET.SH"')                               
 theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
 
                 if [[ $theButton == "OK" ]]; then
