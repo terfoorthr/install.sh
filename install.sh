@@ -133,8 +133,9 @@ theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}
                 fi      
             fi
 #cleaning     
-yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"          
+yes | sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"          
 echo "removing install files, please enter your,"
+sudo true
 rm -rf /opt/homebrew/Frameworks/ 
 rm -rf /opt/homebrew/SECURITY.md                       
 rm -rf /opt/homebrew/bin/
