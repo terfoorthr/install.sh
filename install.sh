@@ -60,7 +60,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
     echo "${MAC_TYPE}"
     
-osascript -e 'display alert "Wichtig" message "Während des Programmablaufes erscheinen ein paar Bestätigungs Fenster - Diese IMMER erlauben/bestätigen
+osascript -e 'display alert "BE STRONG. BE REAL. BE DIGITAL" message "Während des Programmablaufes erscheinen ein paar Bestätigungs Fenster - Diese IMMER erlauben/bestätigen
 Insbesondere bei der Bitdefender Installation.
 
 A couple of confirmation popup windows appear during the installation - Always allow / confirm these
