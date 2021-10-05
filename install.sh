@@ -69,6 +69,7 @@ Especially when installing Bitdefender."'
 
 #MAC Appel m1---------------------------------------------------------------------------      
 if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
+    if [[ $CP_USER == "it-support" ]]; then
         echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
 #install xcode a. ansible´     
         echo "checking xcode..." 
@@ -96,7 +97,6 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
                
 #run playbooks
             cd "$CP_PLAYBOOKS" &&
-            if [[ $CP_USER == "it-support" ]]; then
                 ansible-playbook mac_arm_admin.yml
                  osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ -- dort muss in der seitlichen Katigory - FESTPLATTENVOLLZUGRIFF - 
                 - SecurityEndpoint 
@@ -107,51 +107,68 @@ aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivi
 Admin account is fully set up. Next, execute the same command in the newly created user account."'
             
             else
-                ansible-playbook mac_user.yml
+            osascript -e 'display alert "Install User-Setup" message "Der Benutzer Setup wird nun ausgeführt.    The user setup is now carried out."'
+                cd /opt &&
+                chmod 775 /opt
+                sudo mkdir homebrew 
+                sudo chown "$USER" homebrew 
+                sudo chgrp admin homebrew 
+                curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+                export PATH="/opt/homebrew/bin:$PATH"
+                brew install ansible
+# install repo
+                if [ ! -d "${CP_INSTALL_DIR}" ]; then
+                        mkdir "${CP_INSTALL_DIR}"
+                fi
+                        chmod 775 "${CP_INSTALL_DIR}"
+                        chown "${CP_USER}" "${CP_INSTALL_DIR}"
+                        cd ${HOME} &&
+                        git clone $CP_URL
+                        ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
           
-                    results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment"')                               
-                    theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
+                        results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment"')                               
+                        theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
 
-                if [[ $theButton == "OK" ]]; then
-                    bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
-                    valet.sh install
+                    if [[ $theButton == "OK" ]]; then
+                        bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
+                        valet.sh install
 #Dont deletes Homebrew only the install dir                       
-                    rm -rf "${CP_INSTALL_DIR}"
-                    osascript -e 'display alert "Finish Install" message "
-                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                    The working environment is now fully set up for handover to the employee."'    
-                        exit 1
-                else     
-                    osascript -e 'display alert "Finish Install" message "
-                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                    The working environment is now fully set up for handover to the employee."'
-                    rm -rf "${CP_INSTALL_DIR}"
-                        exit 1 
+                        rm -rf "${CP_INSTALL_DIR}"
+                        osascript -e 'display alert "Finish Install" message "
+                        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+                        The working environment is now fully set up for handover to the employee."'    
+                            exit 1
+                    else     
+                        osascript -e 'display alert "Finish Install" message "
+                        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+                        The working environment is now fully set up for handover to the employee."'
+                        rm -rf "${CP_INSTALL_DIR}"
+                            exit 1 
                 fi      
         fi
 #cleaning     
 yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"          
 echo "removing install files, please enter your,"
-sudo true
-chmod 775 /opt
-rm -rf /opt/homebrew/Frameworks/ 
-rm -rf /opt/homebrew/SECURITY.md                       
-rm -rf /opt/homebrew/bin/
-rm -rf /opt/homebrew/etc/
-rm -rf /opt/homebrew/include/
-rm -rf /opt/homebrew/lib/
-rm -rf /opt/homebrew/opt/
-rm -rf /opt/homebrew/sbin/
-rm -rf /opt/homebrew/share/
-rm -rf /opt/homebrew/var/
-rm -rf /opt/homebrew
-rm -rf "${CP_INSTALL_DIR}"
+sudo rm -rf /opt/homebrew/Frameworks/ 
+sudo rm -rf /opt/homebrew/SECURITY.md                       
+sudo rm -rf /opt/homebrew/bin/
+sudo rm -rf /opt/homebrew/etc/
+sudo rm -rf /opt/homebrew/include/
+sudo rm -rf /opt/homebrew/lib/
+sudo rm -rf /opt/homebrew/opt/
+sudo rm -rf /opt/homebrew/sbin/
+sudo rm -rf /opt/homebrew/share/
+sudo rm -rf /opt/homebrew/var/
+sudo rm -rf /opt/homebrew
+sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                                  
                                                                                          
                         
-#Mac INTEL -----------------------------------------------------------------------------
+#Mac INTEL#########################################################################################################
+
  else
+ if [[ $CP_USER == "it-support" ]]; then
     echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
 #install xcode, brew a. ansible
     echo "checking xcode..." 
@@ -170,8 +187,7 @@ exit 1
                 cd ${HOME} &&
                 git clone $CP_URL    
 #run playbooks
-            cd "$CP_PLAYBOOKS" &&
-        if [[ $CP_USER == "it-support" ]]; then
+            cd "$CP_PLAYBOOKS" &&   
             ansible-playbook mac_intel_admin.yml
                 osascript -e 'display alert "WICHTIG!" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert. Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ -- dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
                 - SecurityEndpoind 
@@ -181,7 +197,20 @@ aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivi
             
 Admin account is fully set up. Next, execute the same command in the newly created user account."'
         else
-            ansible-playbook mac_user.yml
+            osascript -e 'display alert "Install User-Setup" message "Der Benutzer Setup wird nun ausgeführt.    The user setup is now carried out."'
+            yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            brew install ansible    
+# install repo               
+                if [ ! -d "${CP_INSTALL_DIR}" ]; then
+                    mkdir "${CP_INSTALL_DIR}"
+                fi
+                    chmod 775 "${CP_INSTALL_DIR}"
+                    chown "${CP_USER}" "${CP_INSTALL_DIR}" 
+                    cd ${HOME} &&
+                    git clone $CP_URL    
+#run playbooks
+                    cd "$CP_PLAYBOOKS" &&   
+                    ansible-playbook mac_user.yml
 #Check/install - Dev-setup           
                     results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment"')                               
                     theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
@@ -204,21 +233,19 @@ Admin account is fully set up. Next, execute the same command in the newly creat
         fi
 #cleaning
 echo "removing install files."               
-yes | sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"  
-sudo true
-chmod 775 /usr                              
- rm -rf /usr/local/bin/
- rm -rf /usr/local/etc/
- rm -rf /usr/local/include/
- rm -rf /usr/local/lib/
- rm -rf /usr/local/opt/
- rm -rf /usr/local/sbin/
- rm -rf /usr/local/share/
- rm -rf /usr/local/var/
- rm -rf /usr/local/homebrew/
- rm -rf /usr/local/Cellar/
- rm -rf /usr/local/Frameworks/
- rm -rf "${CP_INSTALL_DIR}"
+yes | sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"                              
+ sudo rm -rf /usr/local/bin/
+ sudo rm -rf /usr/local/etc/
+ sudo rm -rf /usr/local/include/
+ sudo rm -rf /usr/local/lib/
+ sudo rm -rf /usr/local/opt/
+ sudo rm -rf /usr/local/sbin/
+ sudo rm -rf /usr/local/share/
+ sudo rm -rf /usr/local/var/
+ sudo rm -rf /usr/local/homebrew/
+ sudo rm -rf /usr/local/Cellar/
+ sudo rm -rf /usr/local/Frameworks/
+ sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                         
         fi
 fi 
