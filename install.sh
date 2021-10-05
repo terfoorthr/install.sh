@@ -18,7 +18,7 @@ DEV_SETUP=""
 #Check system and install recources-----------------------------------------------
 
 ############## LINUX #########################################################
-printf "\e[32mWe bringing up your System  -  for the Client-Provisioning developed by TechDivision, please enter your\e[m\n"
+printf "\e[32mWe bringing up your System  - BE STRONG. BE REAL. BE DIGITAL. - The Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -66,7 +66,8 @@ Insbesondere bei der Bitdefender Installation.
 A couple of confirmation popup windows appear during the installation - Always allow / confirm these
 Especially when installing Bitdefender."'
 
-#MAC Appel m1---------------------------------------------------------------------------      
+# MAC Appel M1 #####################################################################################################
+
 if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
 #install xcode a. ansible´     
@@ -132,24 +133,22 @@ theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}
 #cleaning     
 yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"          
 echo "removing install files, please enter your,"
-sudo true
-chmod 775 /opt
-rm -rf /opt/homebrew/Frameworks/ 
-rm -rf /opt/homebrew/SECURITY.md                       
-rm -rf /opt/homebrew/bin/
-rm -rf /opt/homebrew/etc/
-rm -rf /opt/homebrew/include/
-rm -rf /opt/homebrew/lib/
-rm -rf /opt/homebrew/opt/
-rm -rf /opt/homebrew/sbin/
-rm -rf /opt/homebrew/share/
-rm -rf /opt/homebrew/var/
-rm -rf /opt/homebrew
-rm -rf "${CP_INSTALL_DIR}"
+sudo rm -rf /opt/homebrew/Frameworks/ 
+sudo rm -rf /opt/homebrew/SECURITY.md                       
+sudo rm -rf /opt/homebrew/bin/
+sudo rm -rf /opt/homebrew/etc/
+sudo rm -rf /opt/homebrew/include/
+sudo rm -rf /opt/homebrew/lib/
+sudo rm -rf /opt/homebrew/opt/
+sudo rm -rf /opt/homebrew/sbin/
+sudo rm -rf /opt/homebrew/share/
+sudo rm -rf /opt/homebrew/var/
+sudo rm -rf /opt/homebrew
+sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                                  
                                                                                          
                         
-#Mac INTEL -----------------------------------------------------------------------------
+#Mac INTEL#####################################################################################################
  else
     echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
 #install xcode, brew a. ansible
@@ -161,9 +160,6 @@ exit 1
         printf "\e[32m___________________________________________________________________\e[m\n"    
 
         yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        brew install openssl rust
-            export CPPFLAGS=-I/usr/local/opt/openssl/include
-            export LDFLAGS=-L/usr/local/opt/openssl/lib
         brew install ansible    
 # install repo               
     if [ ! -d "${CP_INSTALL_DIR}" ]; then
@@ -212,21 +208,19 @@ theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}
             fi
 #cleaning
 echo "removing install files."               
-yes | sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"  
-sudo true
-chmod 775 /usr                              
- rm -rf /usr/local/bin/
- rm -rf /usr/local/etc/
- rm -rf /usr/local/include/
- rm -rf /usr/local/lib/
- rm -rf /usr/local/opt/
- rm -rf /usr/local/sbin/
- rm -rf /usr/local/share/
- rm -rf /usr/local/var/
- rm -rf /usr/local/homebrew/
- rm -rf /usr/local/Cellar/
- rm -rf /usr/local/Frameworks/
- rm -rf "${CP_INSTALL_DIR}"
+yes | sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"                           
+sudo rm -rf /usr/local/bin/
+sudo rm -rf /usr/local/etc/
+sudo rm -rf /usr/local/include/
+sudo rm -rf /usr/local/lib/
+sudo rm -rf /usr/local/opt/
+sudo rm -rf /usr/local/sbin/
+sudo rm -rf /usr/local/share/
+sudo rm -rf /usr/local/var/
+sudo rm -rf /usr/local/homebrew/
+sudo rm -rf /usr/local/Cellar/
+sudo rm -rf /usr/local/Frameworks/
+sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                         
         fi
 fi 
