@@ -114,7 +114,7 @@ results1=$(osascript -e 'tell app "System Events" to display dialog "Install Dev
 theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
 
                 if [[ $theButton == "OK" ]]; then
-                    bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
+                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)"
                     valet.sh install
             #Dont deletes Homebrew only install dir                       
                     rm -rf "${CP_INSTALL_DIR}"
