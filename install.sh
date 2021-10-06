@@ -109,23 +109,6 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
                 Admin account is fully set up. Next, execute the same command in the newly created user account."'
             else
                 ansible-playbook mac_user.yml
-#Check/install - Dev-setup 
-          
-results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment Valet.sh"')                               
-theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
-
-                if [[ $theButton == "OK" ]]; then
-                    chmod 775 "${VSH_DIR}"
-                    chown "${CP_USER}" "${VSH_DIR}"
-                    bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
-                    valet.sh install
-            #Dont deletes Homebrew only install dir                       
-                    rm -rf "${CP_INSTALL_DIR}"
-                    osascript -e 'display alert "Finish Install" message "
-                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                    The working environment is now fully set up for handover to the employee."'    
-                        exit 1
-                else     
                     osascript -e 'display alert "Finish Install" message "
                     Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
                     The working environment is now fully set up for handover to the employee."'
