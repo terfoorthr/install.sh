@@ -13,7 +13,7 @@ CP_INSTALL_DIR="${HOME}/.ansible"
 #CP_FILES_DIR="${CP_INSTALL_DIR}/files"
 CP_PLAYBOOKS="$CP_INSTALL_DIR/playbooks"
 DEV_SETUP=""
-VSH_DIR="/usr/local/valet-sh"
+#VSH_DIR="/usr/local/valet-sh"
 #############################################################################
 
 #Check system and install recources-----------------------------------------------
