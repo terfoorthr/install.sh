@@ -200,10 +200,14 @@ Admin account is fully set up. Next, execute the same command in the newly creat
                                                             bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
                                                             valet.sh install                  
                                                             rm -rf "${CP_INSTALL_DIR}"
-                                                            osascript -e 'display alert "Finish Install" message "Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.     The working environment is now fully set up for handover to the employee."'    
+                                                            osascript -e 'display alert "Finish Install" message "Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.
+
+The working environment is now fully set up for handover to the employee."'    
                                                                 exit 1
                                                 else     
-                                                            osascript -e 'display alert "Finish Install" message "Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.     The working environment is now fully set up for handover to the employee."'
+                                                            osascript -e 'display alert "Finish Install" message "Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.
+
+The working environment is now fully set up for handover to the employee."'
                                                             rm -rf "${CP_INSTALL_DIR}"
                                                                 exit 1 
                                                 fi      
