@@ -32,26 +32,15 @@ hostnamectl
         cd ${HOME} &&
         git clone $CP_URL
 # install depends       
-    yes | sudo apt update
-    sudo apt install software-properties-common
-    sudo add-apt-repository --yes --update ppa:ansible/ansible
-    yes | sudo apt install ansible
-    yes | sudo apt install python-testresources
-    yes | sudo apt install curl
+        yes | sudo apt update
+        sudo apt install software-properties-common
+        sudo add-apt-repository --yes --update ppa:ansible/ansible
+        yes | sudo apt install ansible
+        yes | sudo apt install python-testresources
 # run Playbooks   
-    cd "$CP_PLAYBOOKS" &&
-    ansible-playbook ubuntu_admin.yml
-#Check/install - Dev-setup
-                printf "\e[32mINSTALL DEVELOPER ENVIRONMENT\e[m\n"
-                printf "\e[32mPlease enter y/n\e[m\n"
-                read "DEV_SETUP"
-        if [[ $DEV_SETUP == "y" ]]; then
-                bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
-                valet.sh xps-setup -d
-                printf "\e[32mprovisioning system for user account finished\e[m\n"
-        else
-                printf "\e[32mprovisioning system for user account finished\e[m\n" 
-        fi      
+        cd "$CP_PLAYBOOKS" &&
+        ansible-playbook ubuntu_admin.yml
+                printf "\e[32mprovisioning system for user account finished\e[m\n"  
 fi
 ########## MAC OS #########################################################
 if [[ "$OSTYPE" == "darwin"* ]]; then
