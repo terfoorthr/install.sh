@@ -112,9 +112,10 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
                     The working environment is now fully set up for handover to the employee."'
                     rm -rf "${CP_INSTALL_DIR}"
                         exit 1 
+       
                 fi      
-            
-#cleaning     
+
+  #cleaning     
 yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"          
 echo "removing install files, please enter your,"
 sudo rm -rf /opt/homebrew/Frameworks/ 
@@ -129,8 +130,10 @@ sudo rm -rf /opt/homebrew/share/
 sudo rm -rf /opt/homebrew/var/
 sudo rm -rf /opt/homebrew
 sudo rm -rf "${CP_INSTALL_DIR}"
-exit 1                                                  
- fi                                                                                        
+exit 1                   
+            fi
+                                             
+                                                                                       
                         
 #Mac INTEL#####################################################################################################
  else
@@ -204,7 +207,8 @@ echo "removing install files."
 sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                         
 fi
-            
+      
+       
 
               
 
