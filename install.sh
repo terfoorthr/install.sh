@@ -72,47 +72,47 @@ Especially when installing Bitdefender."'
                     if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
                             echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
                     #install xcode a. ansible´     
-                            echo "checking xcode..." 
-                            xcode-select --install && 
-                            printf "\e[32m___________________________________________________________________\e[m\n"    
-                            read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
-                            printf "\e[32m___________________________________________________________________\e[m\n"  
-                                cd /opt &&
-                                sudo mkdir homebrew 
-                                sudo chown "$USER" homebrew 
-                                sudo chgrp admin homebrew 
-                                curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-                                export PATH="/opt/homebrew/bin:$PATH"
-                            brew install ansible
-                    # install repo
-                            if [ ! -d "${CP_INSTALL_DIR}" ]; then
-                                    mkdir "${CP_INSTALL_DIR}"
-                            fi
-                                    chmod 775 "${CP_INSTALL_DIR}"
-                                    chown "${CP_USER}" "${CP_INSTALL_DIR}"
-                                    cd ${HOME} &&
-                                    git clone $CP_URL           
-                    #run playbooks
-                                cd "$CP_PLAYBOOKS" &&
-                                if [[ $CP_USER == "it-support" ]]; then
-                                    ansible-playbook mac_arm_admin.yml
-                                    osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
-                                    Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
-                                    dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
-                                        - SecurityEndpoind 
-                                        - BDLDeamon
-                                    aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
-                                    osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
-                                    
-                                    Admin account is fully set up. Next, execute the same command in the newly created user account."'
-                                else
-                                    ansible-playbook mac_user.yml
-                                        osascript -e 'display alert "Finish Install" message "
-                                        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
-                                        The working environment is now fully set up for handover to the employee."'
-                                        rm -rf "${CP_INSTALL_DIR}"
-                                            exit 1 
-                                    fi      
+                                        echo "checking xcode..." 
+                                        xcode-select --install && 
+                                        printf "\e[32m___________________________________________________________________\e[m\n"    
+                                        read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
+                                        printf "\e[32m___________________________________________________________________\e[m\n"  
+                                            cd /opt &&
+                                            sudo mkdir homebrew 
+                                            sudo chown "$USER" homebrew 
+                                            sudo chgrp admin homebrew 
+                                            curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+                                            export PATH="/opt/homebrew/bin:$PATH"
+                                        brew install ansible
+                                # install repo
+                                        if [ ! -d "${CP_INSTALL_DIR}" ]; then
+                                                mkdir "${CP_INSTALL_DIR}"
+                                        fi
+                                                chmod 775 "${CP_INSTALL_DIR}"
+                                                chown "${CP_USER}" "${CP_INSTALL_DIR}"
+                                                cd ${HOME} &&
+                                                git clone $CP_URL           
+                                #run playbooks
+                                            cd "$CP_PLAYBOOKS" &&
+                                            if [[ $CP_USER == "it-support" ]]; then
+                                                ansible-playbook mac_arm_admin.yml
+                                                osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
+                                                Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
+                                                dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
+                                                    - SecurityEndpoind 
+                                                    - BDLDeamon
+                                                aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
+                                                osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
+                                                
+                                                Admin account is fully set up. Next, execute the same command in the newly created user account."'
+                                            else
+                                                ansible-playbook mac_user.yml
+                                                    osascript -e 'display alert "Finish Install" message "
+                                                    Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+                                                    The working environment is now fully set up for handover to the employee."'
+                                                    rm -rf "${CP_INSTALL_DIR}"
+                                                        exit 1 
+                                                fi      
                               
                     #cleaning     
                     yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"          
@@ -129,7 +129,7 @@ Especially when installing Bitdefender."'
                     sudo rm -rf /opt/homebrew/var/
                     sudo rm -rf /opt/homebrew
                     sudo rm -rf "${CP_INSTALL_DIR}"
-                    exit 1                                                  
+                                                                  
                                                                                                         
                         
 #Mac INTEL#####################################################################################################
@@ -198,13 +198,14 @@ Especially when installing Bitdefender."'
                                     rm -rf "${CP_INSTALL_DIR}"
                                         exit 1 
                                 fi      
-            fi
+                fi
 #cleaning
 echo "removing install files."               
 sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                         
-fi
-      fi         
+    fi
+         
 
               
 
+fi
