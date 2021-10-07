@@ -27,7 +27,7 @@ echo "Your operating system,"
 hostnamectl
 # install repo
     if [ ! -d "${CP_INSTALL_DIR}" ]; then
-         sudo mkdir "${CP_INSTALL_DIR}"
+        mkdir "${CP_INSTALL_DIR}"
     fi
        chmod 775 "${CP_INSTALL_DIR}"
     chown "${CP_USER}" "${CP_INSTALL_DIR}"
