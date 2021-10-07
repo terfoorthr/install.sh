@@ -162,7 +162,7 @@ Especially when installing Bitdefender."'
 dort muss in der seitlichen Katigorie
 -FESTPLATTENVOLLZUGRIFF-
 
-- SecurityEndpoind 
+- Endpoint Security for Mac
 - BDLDeamon
 
 aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'    
