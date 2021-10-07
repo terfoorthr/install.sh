@@ -177,6 +177,16 @@ Especially when installing Bitdefender."'
                                             sudo dseditgroup -o edit -a ${CP_USER} -t user brewers
                                             sudo chown -R "${CP_USER}" /usr/local/Homebrew
                                             sudo chown -R "${CP_USER}" /usr/local/var/Homebrew
+                                            sudo chown -R "${CP_USER}" /usr/local/etc/bash_completion.d
+                                            sudo chown -R "${CP_USER}" /usr/local/lib/pkgconfig
+                                            sudo chown -R "${CP_USER}" /usr/local/share/doc
+                                            sudo chown -R "${CP_USER}" /usr/local/share/info
+                                            sudo chown -R "${CP_USER}" /usr/local/share/man
+                                            sudo chown -R "${CP_USER}" /usr/local/share/man/man1
+                                            sudo chown -R "${CP_USER}" /usr/local/share/man/man3
+                                            sudo chown -R "${CP_USER}" /usr/local/share/zsh
+                                            sudo chown -R "${CP_USER}" /usr/local/share/zsh/site_functions
+                                        
                                             ansible-playbook mac_user.yml
     #Check/install - Dev-setup 
                         
