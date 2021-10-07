@@ -175,6 +175,8 @@ Especially when installing Bitdefender."'
                                             git clone $CP_URL     
                                             cd "$CP_PLAYBOOKS" &&
                                             sudo dseditgroup -o edit -a ${CP_USER} -t user brewers
+                                            sudo chown -R "${CP_USER}" /usr/local/Homebrew
+                                            sudo chown -R "${CP_USER}" /usr/local/var/Homebrew
                                             ansible-playbook mac_user.yml
     #Check/install - Dev-setup 
                         
