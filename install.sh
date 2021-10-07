@@ -29,6 +29,9 @@ hostnamectl
     if [ ! -d "${CP_INSTALL_DIR}" ]; then
          sudo mkdir "${CP_INSTALL_DIR}"
     fi
+       chmod 775 "${CP_INSTALL_DIR}"
+    chown "${CP_USER}" "${CP_INSTALL_DIR}"
+                                               
         cd ${HOME} &&
         git clone $CP_URL
 # install depends       
@@ -36,7 +39,6 @@ hostnamectl
         sudo apt install software-properties-common
         sudo add-apt-repository --yes --update ppa:ansible/ansible
         yes | sudo apt install ansible
-        yes | sudo apt install python-testresources
 # run Playbooks   
         cd "$CP_PLAYBOOKS" &&
         ansible-playbook ubuntu_admin.yml
