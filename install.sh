@@ -140,11 +140,9 @@ exit 1
 #install xcode, brew a. ansible
     echo "checking xcode..." 
         xcode-select --install  
-
         printf "\e[32m___________________________________________________________________\e[m\n" 
         read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
         printf "\e[32m___________________________________________________________________\e[m\n"    
-
         yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install ansible    
 # install repo               
@@ -155,12 +153,15 @@ exit 1
                 chown "${CP_USER}" "${CP_INSTALL_DIR}" 
                 cd ${HOME} &&
                 git clone $CP_URL    
+                
 #run playbooks
             cd "$CP_PLAYBOOKS" &&
                 if [[ $CP_USER == "it-support" ]]; then
+                sudo dscl . -create /Groups/brewers   
+                sudo dseditgroup -o edit -a ${CP_USER} -t user brewers
                     ansible-playbook mac_intel_admin.yml
                 osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
-                Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERCHEIT -> DATENSCHUTZ --
+                Schauen sie unter -- SYSTEMEINSTELLUNGEN -> SICHERHEIT -> DATENSCHUTZ --
                 dort muss in der seitlichen Katigory -FESTPLATTENVOLLZUGRIFF- 
                     - SecurityEndpoind 
                     - BDLDeamon
@@ -169,6 +170,7 @@ exit 1
                 
                 Admin account is fully set up. Next, execute the same command in the newly created user account."'
                 else
+                    sudo dseditgroup -o edit -a ${CP_USER} -t user brewers
                     ansible-playbook mac_user.yml
 #Check/install - Dev-setup 
           
@@ -194,22 +196,10 @@ theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}
             fi
 #cleaning
 echo "removing install files."               
-yes | sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"                           
-sudo rm -rf /usr/local/bin/
-sudo rm -rf /usr/local/etc/
-sudo rm -rf /usr/local/include/
-sudo rm -rf /usr/local/lib/
-sudo rm -rf /usr/local/opt/
-sudo rm -rf /usr/local/sbin/
-sudo rm -rf /usr/local/share/
-sudo rm -rf /usr/local/var/
-sudo rm -rf /usr/local/homebrew/
-sudo rm -rf /usr/local/Cellar/
-sudo rm -rf /usr/local/Frameworks/
 sudo rm -rf "${CP_INSTALL_DIR}"
 exit 1                                         
-        fi
-fi 
+fi
+
         
               
 
