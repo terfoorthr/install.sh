@@ -31,7 +31,7 @@ hostnamectl
         mkdir "${CP_INSTALL_DIR}"
     fi
        chmod 775 "${CP_INSTALL_DIR}"
-    chown "${CP_USER}" "${CP_INSTALL_DIR}"
+       chown "${CP_USER}" "${CP_INSTALL_DIR}"
                                                
         cd ${HOME} &&
         git clone $CP_URL
