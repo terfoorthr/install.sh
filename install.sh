@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 #
+#############################################################################
 # TechDivision client provisioning
+# Copyright: (C) 2021 TechDivision GmbH - All Rights Reserved
+# Author: Rene Terfoorth
 #
-# This script installs the command line tools and ansible. After this the
-# client provisioning via ansible will be done.
+# This script installs the command line tools, ansible, Homebrew and the Project-Repository. 
+# After this the Ansible-Client-Provisioning via ansible will be done.
+# 
 #############################################################################
 # VARIABLES
 #############################################################################
 CP_URL="https://github.com/terfoorthr/.ansible.git" 
 CP_USER=${USER} 
 CP_INSTALL_DIR="${HOME}/.ansible"
-#CP_FILES_DIR="${CP_INSTALL_DIR}/files"
 CP_PLAYBOOKS="$CP_INSTALL_DIR/playbooks"
-DEV_SETUP=""
-#VSH_DIR="/usr/local/valet-sh"
 #############################################################################
 
 #Check system and install recources-----------------------------------------------
