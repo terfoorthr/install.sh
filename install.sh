@@ -42,8 +42,8 @@ hostnamectl
         yes | sudo apt install ansible
 # run Playbooks   
         cd "$CP_PLAYBOOKS" &&
-        ansible-playbook ubuntu_admin.yml
-                printf "\e[32mprovisioning system for user account finished\e[m\n"  
+            ansible-playbook ubuntu_admin.yml
+            printf "\e[32mprovisioning system for user account finished\e[m\n"  
 fi
 ########## MAC OS #########################################################
 if [[ "$OSTYPE" == "darwin"* ]]; then
