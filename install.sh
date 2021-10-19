@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 #
-#############################################################################
 # TechDivision client provisioning
-# Copyright: (C) 2021 TechDivision GmbH - All Rights Reserved
-# Author: Rene Terfoorth
 #
-# This script installs the command line tools, ansible, Homebrew and the Project-Repository. 
-# After this the Ansible-Client-Provisioning via ansible will be done.
-# 
+# This script installs the command line tools and ansible. After this the
+# client provisioning via ansible will be done.
 #############################################################################
 # VARIABLES
 #############################################################################
@@ -31,7 +27,7 @@ hostnamectl
         mkdir "${CP_INSTALL_DIR}"
     fi
        chmod 775 "${CP_INSTALL_DIR}"
-       chown "${CP_USER}" "${CP_INSTALL_DIR}"
+    chown "${CP_USER}" "${CP_INSTALL_DIR}"
                                                
         cd ${HOME} &&
         git clone $CP_URL
@@ -42,16 +38,30 @@ hostnamectl
         yes | sudo apt install ansible
 # run Playbooks   
         cd "$CP_PLAYBOOKS" &&
-            ansible-playbook ubuntu_admin.yml
-            printf "\e[32mprovisioning system for user account finished\e[m\n"  
+        ansible-playbook ubuntu_admin.yml
+                printf "\e[32mprovisioning system for user account finished\e[m\n"  
 fi
-########## MAC OS #########################################################
+########## MAC OS ###################################################################################################
 if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Your operating system is MAC-OSX"
 #check specs and start CP
     echo "checking Hardware and OS Version..."
-    MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
+        MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
     echo "${MAC_TYPE}"
+#install xcode a. ansible´     
+    echo "checking xcode..." 
+    xcode-select --install && 
+        echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
+    printf "\e[32m___________________________________________________________________\e[m\n"    
+    read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
+    printf "\e[32m___________________________________________________________________\e[m\n"  
+if [ ! -d "${CP_INSTALL_DIR}" ]; then
+        mkdir "${CP_INSTALL_DIR}"
+fi
+    chmod 775 "${CP_INSTALL_DIR}"
+    chown "${CP_USER}" "${CP_INSTALL_DIR}" 
+    cd ${HOME} &&
+    git clone $CP_URL 
     
 osascript -e 'display alert "Wichtig" message "Während des Programmablaufes erscheinen ein paar Bestätigungs Fenster - Diese IMMER erlauben/bestätigen
 Insbesondere bei der Bitdefender Installation.
@@ -61,31 +71,16 @@ Especially when installing Bitdefender."'
 
 # MAC Appel M1 #####################################################################################################
 
-                if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
-                        echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
-#install xcode a. ansible´     
-                                    echo "checking xcode..." 
-                                        xcode-select --install && 
-                                        printf "\e[32m___________________________________________________________________\e[m\n"    
-                                        read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
-                                        printf "\e[32m___________________________________________________________________\e[m\n"  
-                                            cd /opt &&
-                                            sudo mkdir homebrew 
-                                            sudo chown "$USER" homebrew 
-                                            sudo chgrp admin homebrew 
-                                            curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-                                            export PATH="/opt/homebrew/bin:$PATH"
-                                        brew install ansible
-# install repo
-                                    if [ ! -d "${CP_INSTALL_DIR}" ]; then
-                                                mkdir "${CP_INSTALL_DIR}"
-                                    fi
-                                                chmod 775 "${CP_INSTALL_DIR}"
-                                                chown "${CP_USER}" "${CP_INSTALL_DIR}"
-                                                cd ${HOME} &&
-                                                git clone $CP_URL           
+if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
+                        cd /opt &&
+                            sudo mkdir homebrew 
+                            sudo chown "$USER" homebrew 
+                            sudo chgrp admin homebrew 
+                            curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+                                export PATH="/opt/homebrew/bin:$PATH"
+                            brew install ansible    
 #run playbooks
-                                                cd "$CP_PLAYBOOKS" &&
+                    cd "$CP_PLAYBOOKS" &&
                                             if [[ $CP_USER == "it-support" ]]; then
                                                     ansible-playbook mac_arm_admin.yml
                                                     osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
@@ -119,33 +114,18 @@ Especially when installing Bitdefender."'
                             sudo rm -rf /opt/homebrew/share/
                             sudo rm -rf /opt/homebrew/var/
                             sudo rm -rf /opt/homebrew
-                            sudo rm -rf "${CP_INSTALL_DIR}"
-                                                                  
-                                                                                                        
-                        
+                            sudo rm -rf "${CP_INSTALL_DIR}"                                                                 
+                                                                                                                   
 #Mac INTEL#####################################################################################################
                 else
                     echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."                                 
 ####### ADMIN INSTALL #############                       
                         if [[ $CP_USER == "it-support" ]]; then
-#install xcode, brew a. ansible
-                                        echo "checking xcode..." 
-                                        xcode-select --install  
-                                        printf "\e[32m___________________________________________________________________\e[m\n" 
-                                        read -p "Press [Enter] key, !!AFTER!! X-CODE installation is finished..."
-                                        printf "\e[32m___________________________________________________________________\e[m\n"    
+#instal brew a. ansible  
                                             sudo dscl . -create /Groups/brewers   
                                             sudo dseditgroup -o edit -a ${CP_USER} -t user brewers
                                             yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-                                            brew install ansible
-## install repo               
-                                    if [ ! -d "${CP_INSTALL_DIR}" ]; then
-                                                mkdir "${CP_INSTALL_DIR}"
-                                    fi
-                                                hmod 775 "${CP_INSTALL_DIR}"
-                                                chown "${CP_USER}" "${CP_INSTALL_DIR}" 
-                                                cd ${HOME} &&
-                                                git clone $CP_URL 
+                                            brew install ansible               
 ### run playbooks        
                                                 cd "$CP_PLAYBOOKS" &&
                                                     ansible-playbook mac_intel_admin.yml
@@ -163,15 +143,9 @@ aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivi
 Admin account is fully set up. Next, execute the same command in the newly created user account."'
                         else
 ####### USER INSTALL #############                          
-                                    if [ ! -d "${CP_INSTALL_DIR}" ]; then
-                                                mkdir "${CP_INSTALL_DIR}"
-                                    fi
-                                                chmod 775 "${CP_INSTALL_DIR}"
-                                                chown "${CP_USER}" "${CP_INSTALL_DIR}" 
-                                                cd ${HOME} &&
-                                                git clone $CP_URL     
                                                 cd "$CP_PLAYBOOKS" &&
                                                     sudo dseditgroup -o edit -a ${CP_USER} -t user brewers
+                                                    sudo chown -R "${CP_USER}" /usr/local/
                                                     sudo chown -R "${CP_USER}" /usr/local/Homebrew
                                                     sudo chown -R "${CP_USER}" /usr/local/var/Homebrew
                                                     sudo chown -R "${CP_USER}" /usr/local/etc/bash_completion.d
