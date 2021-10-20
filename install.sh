@@ -25,18 +25,20 @@ hostnamectl
 # install repo
     if [ ! -d "${CP_INSTALL_DIR}" ]; then
         mkdir "${CP_INSTALL_DIR}"
+        chmod 775 "${CP_INSTALL_DIR}"
+        chown "${CP_USER}" "${CP_INSTALL_DIR}"
     fi
-       chmod 775 "${CP_INSTALL_DIR}"
-    chown "${CP_USER}" "${CP_INSTALL_DIR}"
-                                               
-        cd ${HOME} &&
-        git clone $CP_URL
+
+                                                
 # install depends       
+        yes | sudo apt install git
         yes | sudo apt update
         sudo apt install software-properties-common
         sudo add-apt-repository --yes --update ppa:ansible/ansible
         yes | sudo apt install ansible
 # run Playbooks   
+        cd ${HOME} &&
+        git clone $CP_URL
         cd "$CP_PLAYBOOKS" &&
         ansible-playbook ubuntu_admin.yml
                 printf "\e[32mprovisioning system for user account finished\e[m\n"  
@@ -145,7 +147,6 @@ Admin account is fully set up. Next, execute the same command in the newly creat
 ####### USER INSTALL #############                          
                                                 cd "$CP_PLAYBOOKS" &&
                                                     sudo dseditgroup -o edit -a ${CP_USER} -t user brewers
-                                                    sudo chown -R "${CP_USER}" /usr/local/
                                                     sudo chown -R "${CP_USER}" /usr/local/Homebrew
                                                     sudo chown -R "${CP_USER}" /usr/local/var/Homebrew
                                                     sudo chown -R "${CP_USER}" /usr/local/etc/bash_completion.d
