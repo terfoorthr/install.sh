@@ -7,7 +7,7 @@
 #############################################################################
 # VARIABLES
 #############################################################################
-CP_URL="it-support@10.5.20.61/home/it-support/.ansible" 
+CP_URL="it-support@10.5.20.61/home/it-support/.ansible.git" 
 CP_USER=${USER} 
 CP_INSTALL_DIR="${HOME}/.ansible"
 CP_PLAYBOOKS="$CP_INSTALL_DIR/playbooks"
