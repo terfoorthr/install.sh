@@ -42,17 +42,20 @@ hostnamectl
         ansible-playbook ubuntu_admin.yml
                 printf "\e[32mprovisioning system for user account finished\e[m\n"  
 fi
+
 ########## MAC OS ###################################################################################################
 if [[ "$OSTYPE" == "darwin"* ]]; then
+
 mac_install
+#Install ansible-Playbooks
 if [ ! -d "${CP_INSTALL_DIR}" ]; then
         mkdir "${CP_INSTALL_DIR}"
-fi
-    chmod 775 "${CP_INSTALL_DIR}"
-    chown "${CP_USER}" "${CP_INSTALL_DIR}" 
-    cd ${HOME} &&
-    git clone $CP_URL 
-    
+        chmod 775 "${CP_INSTALL_DIR}"
+        chown "${CP_USER}" "${CP_INSTALL_DIR}" 
+            cd "${HOME}" &&
+            git clone "$CP_URL" 
+fi 
+
 osascript -e 'display alert "Wichtig" message "Während des Programmablaufes erscheinen ein paar Bestätigungs Fenster - Diese IMMER erlauben/bestätigen
 Insbesondere bei der Bitdefender Installation.
 
@@ -63,8 +66,9 @@ Especially when installing Bitdefender."'
 
 if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
        install_mac_m1
+
 #run playbooks
-        cd "$CP_PLAYBOOKS" &&
+    cd "$CP_PLAYBOOKS" &&
     if [[ $CP_USER == "it-support" ]]; then
         ansible-playbook mac_arm_admin.yml
         osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert, unter manchen MacOS Versionen werden wichtige Dienste nicht mit installiert
@@ -89,15 +93,18 @@ remove_m1 "${CP_INSTALL_DIR}"
                                                                                                                    
 #Mac INTEL#####################################################################################################
 else
-    echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."                                 
+    echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
+
 ####### ADMIN INSTALL #############                       
     if [[ $CP_USER == "it-support" ]]; then
 #instal brew a. ansible  
-install_mac_intel    
+install_mac_intel
+
 ### run playbooks        
-            cd "$CP_PLAYBOOKS" &&
-            ansible-playbook mac_intel_admin.yml
-            osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert.   In seltenen Fällen werden unter manchen MacOS Versionen wichtige Dienste nicht mit installiert. -- Schauen sie unter 
+cd "$CP_PLAYBOOKS" &&
+ansible-playbook mac_intel_admin.yml
+
+    osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert.   In seltenen Fällen werden unter manchen MacOS Versionen wichtige Dienste nicht mit installiert. -- Schauen sie unter 
 -- SYSTEMEINSTELLUNGEN -> SICHERHEIT -> DATENSCHUTZ --
 dort muss in der seitlichen Katigorie
 -FESTPLATTENVOLLZUGRIFF-
@@ -109,37 +116,15 @@ aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivi
 osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
 
 Admin account is fully set up. Next, execute the same command in the newly created user account."'
+
     else
 ####### USER INSTALL #############  
-
-        cd "$CP_PLAYBOOKS" &&
-rights_intel "${CP_USER}"                    
-            ansible-playbook mac_user.yml
+install_mac_intel 
+rights_intel "${CP_USER}"  
+cd "$CP_PLAYBOOKS" &&                  
+    ansible-playbook mac_user.yml
 #Check/install - Dev-setup  
-
-    results1=$(osascript -e 'tell app "System Events" to display dialog "Install Developer-Environment Valet.sh"')                               
-    theButton=$( echo "$results1" | /usr/bin/awk -F "button returned:|," '{print $2}' )
-
-        if [[ $theButton == "OK" ]]; then
-            bash <(curl -fsSL https://raw.githubusercontent.com/valet-sh/install/master/install.sh)
-            valet.sh install                  
-            rm -rf "${CP_INSTALL_DIR}"
-            osascript -e 'display alert "Finish Install" message "Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.
-
-The working environment is now fully set up for handover to the employee."'    
-            exit 1
-        else     
-            osascript -e 'display alert "Finish Install" message "Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.
-
-The working environment is now fully set up for handover to the employee."'
-            rm -rf "${CP_INSTALL_DIR}"
-            exit 1 
-        fi      
+init_dev "${CP_INSTALL_DIR}"
     fi
-#cleaning
-    echo "removing install files."               
-    sudo rm -rf "${CP_INSTALL_DIR}"
-    exit 1                                         
-    fi           
-
+  fi           
 fi
