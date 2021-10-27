@@ -13,11 +13,9 @@ function install_mac_m1() {
         sudo chgrp admin homebrew
         curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew  
    export PATH="/opt/homebrew/bin:$PATH"
-if ! command -v ansible &> /dev/null
-    then
-    brew install ansible |
-    brew link ansible
-fi
+
+    brew install ansible
+  
 }
 
 function install_mac_intel() {
