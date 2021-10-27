@@ -7,22 +7,17 @@
 ################################################################################
 
 function install_mac_m1() {
-if ! command -v brew &> /dev/null
-    then  
     cd /opt &&
     if [ ! -d homebrew ]; then
         sudo mkdir homebrew &
         sudo chown "$USER" homebrew &
         sudo chgrp admin homebrew
+    fi
         curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew 
-    fi 
-   export PATH="/opt/homebrew/bin:$PATH"
-fi
-if ! command -v ansible &> /dev/null
-    then
-    brew install ansible |
-    brew link ansible
-fi
+         export PATH="/opt/homebrew/bin:$PATH"
+    brew install ansible 
+  
+
 }
 
 function install_mac_intel() {
