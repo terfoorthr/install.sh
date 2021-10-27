@@ -80,7 +80,6 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         ansible-playbook mac_arm_admin.yml
         
         message_bitdefender
-
         message_info_finish_admin
 
     else
