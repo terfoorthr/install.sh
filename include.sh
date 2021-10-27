@@ -14,15 +14,12 @@ if ! command -v brew &> /dev/null
         sudo mkdir homebrew &
         sudo chown "$USER" homebrew &
         sudo chgrp admin homebrew
-        curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew 
-    fi 
+ fi 
+   curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew 
    export PATH="/opt/homebrew/bin:$PATH"
-fi
-if ! command -v ansible &> /dev/null
-    then
-    brew install ansible |
-    brew link ansible
-fi
+
+    brew install ansible
+
 }
 
 function install_mac_intel() {
