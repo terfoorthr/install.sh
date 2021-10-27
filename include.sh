@@ -64,17 +64,11 @@ rm -rf "${CP_INSTALL_DIR}"
 
 }
 
-function mac_install() {
-
-echo "Your operating system is MAC-OSX"
-#check specs and start CP
-echo "checking Hardware and OS Version..."
-    MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
-echo "${MAC_TYPE}"
-#install xcode a. ansible´     
+function mac_xcode() {
+#install xcode´     
     echo "checking xcode..." 
     xcode-select --install && 
-        echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
+       
     printf "\e[32m___________________________________________________________________\e[m\n"    
     read -p "Press [Enter] key !!AFTER!! X-CODE installation is finished..."
     printf "\e[32m___________________________________________________________________\e[m\n"  
@@ -101,4 +95,39 @@ The working environment is now fully set up for handover to the employee."'
             rm -rf "${CP_INSTALL_DIR}"
             exit 1 
 fi         
+}
+function message_bitdefender()
+{
+osascript -e 'display alert "WICHTIG" message "Der Bitdefender wurde installiert.   In seltenen Fällen werden unter manchen MacOS Versionen wichtige Dienste nicht mit installiert. -- Schauen sie unter 
+-- SYSTEMEINSTELLUNGEN -> SICHERHEIT -> DATENSCHUTZ --
+dort muss in der seitlichen Katigorie
+-FESTPLATTENVOLLZUGRIFF-
+
+- Endpoint Security for Mac
+- BDLDeamon
+
+aktiviert sein. Falls nicht finden sie im TD Confluence die Anleitung zum aktivieren."'
+}
+function message_info_start()
+{
+osascript -e 'display alert "Wichtig" message "Während des Programmablaufes erscheinen ein paar Bestätigungs Fenster - Diese IMMER erlauben/bestätigen
+Insbesondere bei der Bitdefender Installation.
+
+A couple of confirmation popup windows appear during the installation - Always allow / confirm these
+Especially when installing Bitdefender."'
+}
+
+function message_info_finish_admin()
+{
+osascript -e 'display alert "Finish Admin-Setup" message "Admin-Account ist vollständig eingerichtet. Als nächstes den gleichen Befehl noch im neu erstellten Benutzer-Account ausführen.
+
+Admin account is fully set up. Next, execute the same command in the newly created user account."'
+}
+
+function message_info_finish_user()
+{
+osascript -e 'display alert "Finish Install" message "
+        Der PC kann nun an den Mitarbeiter übergeben werden und ist vollständig eingerichtet.      
+        The working environment is now fully set up for handover to the employee."'
+
 }
