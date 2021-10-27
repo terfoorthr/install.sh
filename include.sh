@@ -9,8 +9,8 @@
 function install_mac_m1() {
     cd /opt &&
     if [ ! -d homebrew ]; then
-        sudo mkdir homebrew &
-        sudo chown "$USER" homebrew &
+        sudo mkdir homebrew 
+        sudo chown "$USER" homebrew 
         sudo chgrp admin homebrew
     fi
         curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew 
