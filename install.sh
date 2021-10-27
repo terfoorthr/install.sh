@@ -48,7 +48,7 @@ fi
 
 ########## MAC OS ###################################################################################################
 if [[ "$OSTYPE" == "darwin"* ]]; then
-
+echo "Your operating system is MAC-OSX"
 
 mac_xcode
 
@@ -84,6 +84,7 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         message_info_finish_admin
 
     else
+        rights_m1 "${CP_USER}"
 
         ansible-playbook mac_user.yml
         
@@ -93,7 +94,7 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         exit 1 
     fi      
 #cleaning system    
-remove_m1 "${CP_INSTALL_DIR}"                                                             
+                                                          
                                                                                                                    
 #Mac INTEL#####################################################################################################
 else
