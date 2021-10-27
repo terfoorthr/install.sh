@@ -49,11 +49,7 @@ fi
 ########## MAC OS ###################################################################################################
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
-echo "Your operating system is MAC-OSX"
-#check specs and start CP
-    echo "checking Hardware and OS Version..."
-        MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
-    echo "${MAC_TYPE}"
+
 mac_xcode
 
 #check specs and start CP
