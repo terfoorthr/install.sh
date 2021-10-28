@@ -17,9 +17,10 @@ CP_INCLUDE_URL="https://raw.githubusercontent.com/terfoorthr/install.sh/master/i
 #Check system and install recources-----------------------------------------------
 source /dev/stdin <<< "$( curl -sS ${CP_INCLUDE_URL} )"
 
+############## LINUX #########################################################
 printf "\e[32mWe bringing up your System  - BE STRONG. BE REAL. BE DIGITAL. - The Client-Provisioning developed by TechDivision, please enter your\e[m\n"
 sudo true
-############## LINUX #########################################################
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 echo "Your operating system," 
 hostnamectl
@@ -71,8 +72,8 @@ message_info_start
 # MAC Appel M1 #####################################################################################################
 
 if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
-        install_mac_m1
-        echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
+       install_mac_m1
+
 #run playbooks
     cd "$CP_PLAYBOOKS" &&
     if [[ $CP_USER == "it-support" ]]; then
@@ -80,10 +81,10 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         ansible-playbook mac_arm_admin.yml
         
         message_bitdefender
+
         message_info_finish_admin
 
     else
-        rights_m1 "${CP_USER}"
 
         ansible-playbook mac_user.yml
         
@@ -93,12 +94,14 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         exit 1 
     fi      
 #cleaning system    
-                                                          
+remove_m1 "${CP_INSTALL_DIR}"                                                             
                                                                                                                    
 #Mac INTEL#####################################################################################################
 else
     echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
 
+   
+    
 ####### ADMIN INSTALL #############                       
     if [[ $CP_USER == "it-support" ]]; then
 #instal brew a. ansible  
@@ -119,6 +122,7 @@ install_mac_intel
 
 rights_intel "${CP_USER}"
 
+ cd "$CP_PLAYBOOKS" && 
                  
     ansible-playbook mac_user.yml
     
@@ -126,7 +130,6 @@ rights_intel "${CP_USER}"
 
 #Check/install - Dev-setup  
 init_dev "${CP_INSTALL_DIR}"
-
     fi
   fi           
 fi
