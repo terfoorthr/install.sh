@@ -25,40 +25,36 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 echo "Your operating system," 
 hostnamectl
 
-# install repo
+# install Ansible-Repo-dir
     if [ ! -d "${CP_INSTALL_DIR}" ]; then
         mkdir "${CP_INSTALL_DIR}"
         chmod 775 "${CP_INSTALL_DIR}"
         chown "${CP_USER}" "${CP_INSTALL_DIR}"
     fi 
-
-# install depends       
-        yes | sudo apt install git
-        yes | sudo apt update
-        sudo apt install software-properties-common
-        sudo add-apt-repository --yes --update ppa:ansible/ansible
-        yes | sudo apt install ansible
+# install dependencies 
+install_depends_ubuntu
 
 # run Playbooks   
-        cd ${HOME} &&
-        git clone $CP_URL
-        cd "$CP_PLAYBOOKS" &&
-        ansible-playbook ubuntu_admin.yml
-                printf "\e[32mprovisioning system for user account finished\e[m\n"  
+    cd ${HOME} &&
+    git clone $CP_URL
+    cd "$CP_PLAYBOOKS" &&
+    ansible-playbook ubuntu_admin.yml
+        printf "\e[32mprovisioning system for user account finished\e[m\n"  
 fi
 
 ########## MAC OS ###################################################################################################
 if [[ "$OSTYPE" == "darwin"* ]]; then
 echo "Your operating system is MAC-OSX"
 
+# install X-Code
 mac_xcode
 
-#check specs and start CP
+#check specs and start Client-Provisioning
 echo "checking Hardware and OS Version..."
 MAC_TYPE=$(sysctl -a | grep "machdep.cpu.brand_string")
 echo "${MAC_TYPE}"
 
-#Install ansible-Playbooks
+#Install Ansible-Playbooks
 if [ ! -d "${CP_INSTALL_DIR}" ]; then
         mkdir "${CP_INSTALL_DIR}"
         chmod 775 "${CP_INSTALL_DIR}"
@@ -67,69 +63,81 @@ if [ ! -d "${CP_INSTALL_DIR}" ]; then
             git clone "$CP_URL" 
 fi 
 
+#installation info
 message_info_start
 
 # MAC Appel M1 #####################################################################################################
 
 if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
+
+#install m1 dependencies       
        install_mac_m1
 
-#run playbooks
+#run playbook for Admin Account
     cd "$CP_PLAYBOOKS" &&
-    if [[ $CP_USER == "it-support" ]]; then
-        
+    if [[ $CP_USER == "it-support" ]]; then       
         ansible-playbook mac_arm_admin.yml
-        
+
+# info massage for bitdefender installation        
         message_bitdefender
 
+# info massage
         message_info_finish_admin
 
     else
 
+# run playbook for User-Account
         ansible-playbook mac_user.yml
-        
+
+# info massage        
         message_info_finish_user
 
-        rm -rf "${CP_INSTALL_DIR}"
-        exit 1 
     fi      
-#cleaning system    
-remove_m1 "${CP_INSTALL_DIR}"                                                             
-                                                                                                                   
+
+
+
 #Mac INTEL#####################################################################################################
 else
     echo -e "Client Provisionin Setup $(system_profiler SPSoftwareDataType -detailLevel mini) starting..."
-
-   
-    
+  
 ####### ADMIN INSTALL #############                       
     if [[ $CP_USER == "it-support" ]]; then
-#instal brew a. ansible  
+#instal dependencies
 install_mac_intel
 
 ### run playbooks        
 cd "$CP_PLAYBOOKS" &&
-
 ansible-playbook mac_intel_admin.yml
 
+# info massage for bitdefender installation 
 message_bitdefender
-    
-message_info_finish_admin
 
+# info massage    
+message_info_finish_admin
+      
     else
+
 ####### USER INSTALL #############  
+#install dependencies
 install_mac_intel 
 
+#change Homebrew rights
 rights_intel "${CP_USER}"
 
- cd "$CP_PLAYBOOKS" && 
-                 
-    ansible-playbook mac_user.yml
-    
+#run playbook
+ cd "$CP_PLAYBOOKS" &&                  
+ ansible-playbook mac_user.yml
+
+# info massage
     message_info_finish_user    
 
 #Check/install - Dev-setup  
 init_dev "${CP_INSTALL_DIR}"
     fi
-  fi           
+
+  fi    
+
+## remove install-dir   
+rm -rf "${CP_INSTALL_DIR}" 
+
 fi
