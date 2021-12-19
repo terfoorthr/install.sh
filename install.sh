@@ -7,14 +7,14 @@
 #############################################################################
 # VARIABLES
 #############################################################################
-CP_URL="https://github.com/terfoorthr/.ansible.git" 
+CP_URL="https://git.tdservice.cloud/fe/ansible/ansible-client-provisioning.git" 
 CP_USER=${USER} 
 CP_INSTALL_DIR="${HOME}/.ansible"
 CP_PLAYBOOKS="$CP_INSTALL_DIR/playbooks"
 CP_INCLUDE_URL="https://raw.githubusercontent.com/terfoorthr/install.sh/master/include.sh"
 #############################################################################
 
-#Check system and install recources-----------------------------------------------
+#import functions-----------------------------------------------
 source /dev/stdin <<< "$( curl -sS ${CP_INCLUDE_URL} )"
 
 ############## LINUX #########################################################
@@ -40,6 +40,7 @@ install_depends_ubuntu
     cd "$CP_PLAYBOOKS" &&
     ansible-playbook ubuntu_admin.yml
         printf "\e[32mprovisioning system for user account finished\e[m\n"  
+    rm -r "${CP_INSTALL_DIR}" 
 fi
 
 ########## MAC OS ###################################################################################################
@@ -113,8 +114,14 @@ ansible-playbook mac_intel_admin.yml
 message_bitdefender
 
 # info massage    
-message_info_finish_admin
-      
+# !!new, when filevault status is active provisioning is complete else show error message
+        if  fdesetup isactive = true 
+            then
+            message_info_finish_admin
+        else
+            message_error
+        fi
+  
     else
 
 ####### USER INSTALL #############  
