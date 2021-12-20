@@ -7,7 +7,7 @@
 #############################################################################
 # VARIABLES
 #############################################################################
-CP_URL="https://$terfoorthr$nAWHkjSbaMtWqDfE5pdC@git.tdservice.cloud/fe/ansible/ansible-client-provisioning.git" 
+CP_URL="https://terfoorthr:nAWHkjSbaMtWqDfE5pdC@git.tdservice.cloud/fe/ansible/ansible-client-provisioning.git" 
 CP_USER=${USER} 
 CP_INSTALL_DIR="${HOME}/.ansible"
 CP_PLAYBOOKS="$CP_INSTALL_DIR/playbooks"
