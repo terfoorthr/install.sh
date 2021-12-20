@@ -63,7 +63,7 @@ if [ ! -d "${CP_INSTALL_DIR}" ]; then
             cd "${HOME}" &&
             git clone "$CP_URL" 
 fi 
-
+sleep 5s
 #installation info
 message_info_start
 
@@ -76,6 +76,7 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
 
 #run playbook for Admin Account
     cd "$CP_PLAYBOOKS" &&
+    sleep 5s
     if [[ $CP_USER == "it-support" ]]; then       
         ansible-playbook mac_arm_admin.yml
 
