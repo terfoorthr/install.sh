@@ -9,7 +9,7 @@
 #############################################################################
 CP_URL="https://client3112:rfc_a_o5xJNyqU3EMNN5@git.tdservice.cloud/fe/ansible/ansible-client-provisioning.git" 
 CP_USER=${USER} 
-CP_INSTALL_DIR="${HOME}/ansible-client-provisioning"
+CP_INSTALL_DIR="${HOME}/.ansible"
 CP_PLAYBOOKS="$CP_INSTALL_DIR/playbooks"
 CP_INCLUDE_URL="https://raw.githubusercontent.com/terfoorthr/install.sh/master/include.sh"
 #############################################################################
@@ -30,13 +30,14 @@ hostnamectl
         mkdir "${CP_INSTALL_DIR}"
         chmod 775 "${CP_INSTALL_DIR}"
         chown "${CP_USER}" "${CP_INSTALL_DIR}"
+    
     fi 
 # install dependencies 
 install_depends_ubuntu
 
 # run Playbooks   
     cd ${HOME} &&
-    git clone $CP_URL
+    git clone $CP_URL 
     cd "$CP_PLAYBOOKS" &&
     ansible-playbook ubuntu_admin.yml
         printf "\e[32mprovisioning system for user account finished\e[m\n"  
@@ -62,6 +63,7 @@ if [ ! -d "${CP_INSTALL_DIR}" ]; then
         chown "${CP_USER}" "${CP_INSTALL_DIR}" 
             cd "${HOME}" &&
             git clone "$CP_URL" 
+            mv "${home}"/ansible-client-provisioning "${home}"/.ansible
 fi 
 sleep 5s
 #installation info
