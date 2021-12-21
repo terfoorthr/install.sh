@@ -63,7 +63,7 @@ if [ ! -d "${CP_INSTALL_DIR}" ]; then
         chown "${CP_USER}" "${CP_INSTALL_DIR}" 
             cd "${HOME}" &&
             git clone "$CP_URL" 
-            mv $home/ansible-client-provisioning $home/.ansible
+            
 fi 
 sleep 5s
 #installation info
