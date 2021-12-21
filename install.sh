@@ -89,6 +89,7 @@ if [[ $MAC_TYPE == "machdep.cpu.brand_string: Apple M1" ]]; then
         message_info_finish_admin
 
     else
+        sudo chown -R $CP_USER /opt/homebrew/Cellar
         rights_arm
 # run playbook for User-Account
         ansible-playbook mac_user.yml
