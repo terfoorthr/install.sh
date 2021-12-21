@@ -16,7 +16,10 @@ function install_depends_ubuntu() {
         yes | sudo apt install ansible
 }
 
+function rights_arm() {
 
+sudo chown -R $(whoami) /opt/homebrew/Cellar
+}
 
 function install_mac_m1() {
 #################install Homebrew and Ansible for Mac M1
